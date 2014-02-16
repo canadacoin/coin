@@ -1,33 +1,33 @@
 #!/usr/bin/make -f
 # -*- mode: makefile; coding: utf-8 -*-
 
-#DEB_MAKE_CHECK_TARGET = test_dogecoin
-#build/dogecoind::
-#	$(if $(filter nocheck,$(DEB_BUILD_OPTIONS)),,src/test_dogecoin)
+#DEB_MAKE_CHECK_TARGET = test_canadacoin
+#build/canadacoind::
+#	$(if $(filter nocheck,$(DEB_BUILD_OPTIONS)),,src/test_canadacoin)
 
-DEB_INSTALL_EXAMPLES_dogecoind += debian/examples/*
-DEB_INSTALL_MANPAGES_dogecoind += debian/manpages/*
+DEB_INSTALL_EXAMPLES_canadacoind += debian/examples/*
+DEB_INSTALL_MANPAGES_canadacoind += debian/manpages/*
 
 %:
 	dh --with bash-completion $@
 
 override_dh_auto_build:
-	cd src; $(MAKE) -f makefile.unix dogecoind
+	cd src; $(MAKE) -f makefile.unix canadacoind
 	$(MAKE)
 
 override_dh_auto_clean:
-	if [ -f Makefile ]; then $(MAKE) clean; else rm -rf build/; rm -f dogecoin-qt; fi
+	if [ -f Makefile ]; then $(MAKE) clean; else rm -rf build/; rm -f canadacoin-qt; fi
 	cd src; $(MAKE) -f makefile.unix clean
 
 override_dh_auto_configure:
-	qmake dogecoin-qt.pro USE_QRCODE=1
+	qmake canadacoin-qt.pro USE_QRCODE=1
 
 override_dh_auto_test:
-	cd src; $(MAKE) -f makefile.unix test_dogecoin
-	src/test_dogecoin
+	cd src; $(MAKE) -f makefile.unix test_canadacoin
+	src/test_canadacoin
 
 # Ensure wrapper is set executable
-binary-post-install/dogecoind:
-	chmod +x $(cdbs_curdestdir)usr/bin/dogecoind
-binary-post-install/dogecoin-qt:
-	chmod +x $(cdbs_curdestdir)usr/bin/dogecoin-qt
+binary-post-install/canadacoind:
+	chmod +x $(cdbs_curdestdir)usr/bin/canadacoind
+binary-post-install/canadacoin-qt:
+	chmod +x $(cdbs_curdestdir)usr/bin/canadacoin-qt
